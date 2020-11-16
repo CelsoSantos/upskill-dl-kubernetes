@@ -1,6 +1,9 @@
 # Upskill Labs - Day 5
 
-Minikibe setup for this session:
+## Minikibe setup
+
+For this session, we will need to activate certain flags on the `apiserver` as well as a couple `minikube` addons.
+To do so, start minikube using the following commands:
 
 ```bash
 minikube start --nodes 3 --network-plugin=cni --cni=calico --extra-config=apiserver.authorization-mode=RBAC --extra-config=apiserver.enable-admission-plugins="LimitRanger,ResourceQuota,NamespaceExists,NamespaceLifecycle,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
