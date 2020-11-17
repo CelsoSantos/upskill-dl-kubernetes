@@ -2,6 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta1
 kind: Kafka
 metadata:
   name: my-cluster
+  namespace: kafka
 spec:
   kafka:
     version: 2.6.0
@@ -28,7 +29,7 @@ spec:
         size: 10Gi
         deleteClaim: false
   zookeeper:
-    replicas: 1
+    replicas: 3
     storage:
       type: persistent-claim
       size: 10Gi

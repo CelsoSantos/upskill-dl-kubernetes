@@ -137,12 +137,12 @@ Source: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscal
 1. `kubectl create ns autoscaler`
 2. `kubectl apply -f hpa/php-apache.yaml`
 3. `kubectl get pods -n autoscaler`
-4. `kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10 -n autoscaler`
+4. `kubectl autoscale deployment -n autoscaler php-apache --cpu-percent=50 --min=1 --max=10`
 5. `kubectl get hpa -n autoscaler`
 6. Open another terminal/session
 7. `kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done" -n autoscaler`
 8. *Wait around 60 seconds*
-9.  `watch -n 2 'kubectl get hpa -n autoscaler'`
+9. `watch -n 2 'kubectl get hpa -n autoscaler'`
 10. `kubectl get deployment -n autoscaler php-apache`
 11. Stop load from the other terminal/session by pressing `Ctrl + C`
 12. *Wait around 60 seconds again*
@@ -160,10 +160,10 @@ Source:
 3. `helm repo add jenkins https://charts.jenkins.io`
 4. `helm repo update`
 5. `helm show values jenkins/jenkins`
-6. `helm install jenkins jenkins/jenkins --version 2.16.0  --dry-run`
+6. `helm install jenkins jenkins/jenkins --version 2.16.0 --dry-run`
 7. `helm install jenkins jenkins/jenkins --version 2.16.0`
-8.  `watch -n2 'kubectl get pods'`
-9.  `kubectl describe pod XXXX`
+8. `watch -n2 'kubectl get pods'`
+9. `kubectl describe pod XXXX`
 10. `helm upgrade jenkins jenkins/jenkins --version 2.17.1`
 11. `helm uninstall jenkins`
 
@@ -180,11 +180,11 @@ Source:
 9. Open the URL in the browser
 10. `helm uninstall my-chart`
 11. Create two copies of `values.yaml` and place them in `helm/`
-    1.  Name one `values.dev.yaml`
-    2.  The other `values.prod.yaml`
+    1. Name one `values.dev.yaml`
+    2. The other `values.prod.yaml`
 12. Label nodes to act as different environments
-    1.  `kubectl label node minikube-m02 env=dev`
-    2.  `kubectl label node minikube-m03 env=prod`
+    1. `kubectl label node minikube-m02 env=dev`
+    2. `kubectl label node minikube-m03 env=prod`
 13. Modify the charts to deploy to different nodes depending on the nodeAffinity selector
     1. On `values.dev.yaml` place the following in the `nodeSelector` values: `env=dev`
     2. On `values.prod.yaml` do the same but this time using `env=prod`
